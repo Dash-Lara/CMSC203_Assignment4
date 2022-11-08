@@ -1,0 +1,253 @@
+/*
+ * Class: CMSC203 CRN 21079
+ *Program: Assignment 4 
+ *Instructor: Professor Monshi
+ *Summary of Description: A program to create a property management company and manage the company’s different buildings 
+ *Due Date: 11/08/2022
+ *Integrity Pledge: I, Dashawna Lara, pledge that I, Dashawna Lara, have completed the programming assignment independently.
+ *I, Dashawna Lara, have not copied the code from a student or any source.
+ *Student: Dashawna Lara
+ */
+public class ManagementCompany extends Object {
+	//Constance variables
+	static final int MAX_PROPERTY = 5;
+	static final int MGMT_DEPTH = 10;
+	static final int MGMT_WIDTH = 10;
+	//Class variables
+	private String name, taxID;
+	private double mgmFee;
+	//Property array to hold properties
+	private Property[] properties = new Property[MAX_PROPERTY];
+	//Plot variable;
+	private Plot plot;
+	
+	
+	/**
+	 * No-arg constructor
+	 */
+	public ManagementCompany() {
+		this.name = "";
+		this.taxID = "";
+		this.mgmFee = 0.0;
+		this.plot = new Plot(0, 0, MGMT_WIDTH, MGMT_DEPTH); 
+	}
+	/**
+	 * Parameterized construtor
+	 * @param name
+	 * @param taxID
+	 * @param mgmFee
+	 */
+	public ManagementCompany(String name, String taxID, double mgmFee) {
+		this.name = name;
+		this.taxID = taxID;
+		this.mgmFee = mgmFee;
+		this.plot = new Plot(0, 0, MGMT_WIDTH, MGMT_DEPTH);
+	}
+	/**
+	 * Parameterized constructor
+	 * @param name
+	 * @param taxID
+	 * @param mgmFee
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param depth
+	 */
+	public ManagementCompany(String name, String taxID, double mgmFee, int x, int y, int width, int depth){
+		this.name = name;
+		this.taxID = taxID;
+		this.mgmFee = mgmFee;
+		this.plot = new Plot(x, y, width, depth);
+	}
+	/**
+	 * Copy constructor
+	 * @param otherCompany
+	 */
+	public ManagementCompany(ManagementCompany otherCompany) {
+		this.name = otherCompany.getName();
+		this.taxID = otherCompany.getTaxID();
+		this.mgmFee = otherCompany.getMgmFee();
+	}
+	/**
+	 * Method addProperty to add property to the array if all conditions are met
+	 * @param name
+	 * @param city
+	 * @param rent
+	 * @param owner
+	 * @return integer
+	 */
+	public int addProperty(String name, String city, double rent, String owner) {
+		return addProperty(new Property( name,  city,  rent,  owner));
+	}
+	/**
+	 * Method addProperty to add property to the array if all conditions are met
+	 * @param name
+	 * @param city
+	 * @param rent
+	 * @param owner
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param depth
+	 * @return integer
+	 */
+	public int addProperty(String name, String city, double rent, String owner, int x, int y, int width, int depth) {
+		return addProperty(name, city, rent, owner, x, y, width, depth);
+	}
+	/**
+	 * Method addProperty to add property to the array if all conditions are met
+	 * @param property
+	 * @return integer
+	 */
+	public int addProperty(Property property) {
+		int i;//Variable for loop
+		int temp = 0;//Temp variable for holding the index of the next available spot in the array
+		for(i = 0; i < 5; i++) {
+			if(properties[i] == null) {//If the current array index is null, then that is the spot we will try to put the property in
+				temp = i;
+				break;
+			}
+		}
+		
+		if(isPropertiesFull()) {//If the property array is full return -1
+			return -1;
+		}
+		else if(this.properties.equals(null)) {// If the property array is null return -2
+			return -2;
+		}
+		else if(!(this.plot.encompasses(property.getPlot()))) { //If the plot asociated with the company does not encompass the property plot return -3
+			return -3;
+		}
+		for(i = 0; i < temp; i++) {
+			if(properties[i].getPlot().overlaps(property.getPlot())) {//If this property overlaps with any other property already in the array then return -4
+				return -4;
+			}
+		}
+		
+		this.properties[temp] = new Property(property);//Add the property to the array
+			
+			
+		
+		return temp;//Return the index of the property in the array
+    }
+	/**
+	 * Method to remove the last property in the array
+	 */
+	public void removeLastProperty() {
+		int temp = 0;
+		for(int i = 0; i < 5; i++) {
+			if(properties[i] == null) {
+				temp = i;
+			}
+		}
+		properties[temp - 1].setCity(null);
+		properties[temp - 1].setRentAmount(0.0);
+		properties[temp - 1].setOwner(null);
+		properties[temp - 1].setPropertyName(null);		
+	}
+	/**
+	 * Method to check if the array is full
+	 * @return boolean
+	 */
+	public boolean isPropertiesFull() {
+		int count = 0;
+		for(int i = 0; i < MAX_PROPERTY; i++) {
+			if(!(properties[i] == null)) {
+				count++;
+			}
+		}
+		if(count == MAX_PROPERTY) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	/**
+	 * Method to return the amount of properties in the array
+	 * @return integer
+	 */
+	public int getPropertiesCount() {
+		int count = 0;
+		for(int i = 0; i < properties.length; i++) {
+			if(properties[i] != null) {
+				count++;
+			}
+		}
+		return count;
+	}
+	/**
+	 * Method to return the total rent amount
+	 * @return
+	 */
+	public double getTotalRent() {
+		double totalRent = 0.0;
+		for(int i = 0; i < properties.length; i++) {
+			totalRent += (properties[i].getRentAmount());
+		}
+		return totalRent;
+	}
+	/**
+	 * Method to return the property with the highest rent in the array
+	 * @return
+	 */
+	public Property getHighestRentProperty() {
+		int indexOfHighestRent = 0;
+		for(int i = 1; i < properties.length; i++) {
+			if(properties[indexOfHighestRent].getRentAmount() < properties[i].getRentAmount()) {
+				indexOfHighestRent = i;
+			}
+		}
+		return properties[indexOfHighestRent];
+	}
+	/**
+	 * Method to determine if the management fee is valid by checking if it is between 0 and 100
+	 * @return boolean
+	 */
+	public boolean isMangementFeeValid() {
+		if(mgmFee > 0 && mgmFee < 100) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	/**
+	 * Getter and setter methods
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	public String getTaxID() {
+		return taxID;
+	}
+	public double getMgmFee() {
+		return mgmFee;
+	}
+	
+	public Property[] getProperties() {
+		return properties;
+	}
+	
+	public Plot getPlot() {
+		return plot;
+	}
+	
+	/**
+	 * Overloaded toString method
+	 */
+	@Override
+	public String toString() {
+		String returnString = this.name + "," + this.taxID;
+		for(int i = 0; i < properties.length; i++) {
+			if(this.properties[i] != null) {
+				returnString += "," + properties[i].getPropertyName() + "," + properties[i].getCity() 
+						+ "," + properties[i].getOwner() + "," + properties[i].getRentAmount();
+			}
+		}
+		return  returnString;
+	}
+	
+}
