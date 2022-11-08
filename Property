@@ -1,0 +1,117 @@
+/*
+ * Class: CMSC203 CRN 21079
+ *Program: Assignment 4 
+ *Instructor: Professor Monshi
+ *Summary of Description: A program to create a property management company and manage the company’s different buildings 
+ *Due Date: 11/08/2022
+ *Integrity Pledge: I, Dashawna Lara, pledge that I, Dashawna Lara, have completed the programming assignment independently.
+ *I, Dashawna Lara, have not copied the code from a student or any source.
+ *Student: Dashawna Lara
+ */
+public class Property extends Object{
+	/**
+	 * Private variables
+	 */
+	private String propertyName;
+	private String city;
+	private double rentAmount;
+	private String owner;
+	private Plot plot;
+	
+	
+	/**
+	 * No-arg constructor.
+	 * Sets all arguments to 0 or null
+	 */
+	public Property(){
+		plot = new Plot(0, 0, 0, 0);
+		this.propertyName = "";
+		this.city = "";
+		this.owner = "";
+		this.rentAmount = 0.0;
+	}
+	/**
+	 * Parameterized constructor. Creates a new plot instance with default numbers. 
+	 * Sets variables equal to the parameters passed
+	 * @param propertyName
+	 * @param city
+	 * @param rentAmount
+	 * @param owner
+	 */
+	public Property(String propertyName, String city, double rentAmount, String owner) {
+		this.plot = new Plot(0,0,1,1);
+		this.propertyName = propertyName;
+		this.city = city;
+		this.rentAmount = rentAmount;
+		this.owner = owner;
+	}
+	/**
+	 * Fully parameterized constructor. Creates a new plot instance with passed parameters. 
+	 * Sets variables equal to the parameters passed
+	 * @param propertyName
+	 * @param city
+	 * @param rentAmount
+	 * @param owner
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param depth
+	 */
+	public Property(String propertyName, String city, double rentAmount, String owner, int x, int y, int width, int depth) {
+		this.plot = new Plot(x, y, width, depth);
+		this.propertyName = propertyName;
+		this.city = city;
+		this.rentAmount = rentAmount;
+		this.owner = owner;
+		
+	}
+	/**
+	 * Copy constructor
+	 * @param otherProperty
+	 */
+	public Property(Property otherProperty) {
+		this.plot = new Plot(otherProperty.getPlot());
+		this.propertyName = otherProperty.getPropertyName();
+		this.city = otherProperty.getCity();
+		this.rentAmount = otherProperty.getRentAmount();
+		this.owner = otherProperty.getOwner();
+	}
+	/**
+	 * Setter and getter methods for all the attributes
+	 */
+	public String getPropertyName() {
+		return propertyName;
+	}
+	public void setPropertyName(String propertyName) {
+		this.propertyName = propertyName;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public double getRentAmount() {
+		return rentAmount;
+	}
+	public void setRentAmount(double rentAmount) {
+		this.rentAmount = rentAmount;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	public Plot getPlot() {
+		return plot;
+	}
+	
+	/**
+	 * Overrided toString method
+	 */
+	@Override
+	public String toString() {
+		return this.propertyName + ","  + this.city + "," + this.owner + "," + this.rentAmount;
+	}
+}
