@@ -1,0 +1,54 @@
+/*
+ * Class: CMSC203 CRN 21079
+ *Program: Assignment 4 
+ *Instructor: Professor Monshi
+ *Summary of Description: A program to create a property management company and manage the company’s different buildings 
+ *Due Date: 11/08/2022
+ *Integrity Pledge: I, Dashawna Lara, pledge that I, Dashawna Lara, have completed the programming assignment independently.
+ *I, Dashawna Lara, have not copied the code from a student or any source.
+ *Student: Dashawna Lara
+ */
+import static org.junit.Assert.*;
+
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class ManagementCompanyStudentTest {
+	Property p1, p2;
+	ManagementCompany m1; 
+	
+	@Before
+	public void setUp() throws Exception {
+		m1 = new ManagementCompany("Amy", "456542545",4.50);
+
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		m1 = null;
+	}
+
+	@Test
+	public void testAddProperty() {
+		p1 = new Property ("Pedro", "NYC", 1345, "Lana del Rey",3,4,3,2);
+		p2 = new Property("Lucy", "Damascus", 999.99, "Bani", 4,5,1,1); //This 
+		assertEquals(m1.addProperty(p1), 0);	
+		assertEquals(-4, m1.addProperty(p2)); 
+		}
+	
+	@Test
+	public void testGetPropertiesCount() {
+		p1 = new Property ("Pedro", "NYC", 1345, "Lana del Rey",3,4,3,2);
+		p2 = new Property("Lucy", "Damascus", 999.99, "Bani", 4,5,1,1);
+		assertEquals(0, m1.addProperty(p1));
+		assertEquals(-4, m1.addProperty(p2));
+		assertEquals(1,m1.getPropertiesCount());
+	}
+
+	@Test
+	public void testToString() {
+		assertEquals("Amy,456542545,Pedro,NYC,Lana del Rey,1345", m1.toString());
+	}
+}
