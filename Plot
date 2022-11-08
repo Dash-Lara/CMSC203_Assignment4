@@ -1,0 +1,108 @@
+/*
+ * Class: CMSC203 CRN 21079
+ *Program: Assignment 4 
+ *Instructor: Professor Monshi
+ *Summary of Description: A program to create a property management company and manage the company’s different buildings 
+ *Due Date: 11/08/2022
+ *Integrity Pledge: I, Dashawna Lara, pledge that I, Dashawna Lara, have completed the programming assignment independently.
+ *I, Dashawna Lara, have not copied the code from a student or any source.
+ *Student: Dashawna Lara
+ */
+public class Plot {
+	
+	// Instance variables to represent the x and y coordinates as well as the width and depth
+	private int x, y, width, depth; 
+	
+	/**
+	 * No arg constructor
+	 */
+	public Plot() {
+		this.x = 0;
+		this.y = 0; 
+		this.width = 0;
+		this.depth = 0;
+	}
+	/**
+	 * Parameterized construtor
+	 * @param x @param y @param width @param depth
+	 */
+	public Plot(int x, int y, int width, int depth) {
+		this.x = x;
+		this.y = y; 
+		this.width = width;
+		this.depth = depth;
+	}
+	/**
+	 * Copy constructor
+	 * @param otherPlot
+	 */
+	public Plot(Plot otherPlot) {
+		this.x = otherPlot.getX();
+		this.y = otherPlot.getY(); 
+		this.width = otherPlot.getWidth();
+		this.depth = otherPlot.getDepth();
+	}
+	/**
+	 * Boolean method to determine if the Plot instance passes encompasses
+	 * the current Plot instance
+	 * @param plot
+	 * @return encompasses
+	 */
+	public boolean encompasses(Plot plot) {		
+		if(this.width < plot.getWidth()) {
+			return false;
+		}
+		if(this.depth < plot.getDepth()) {
+			return false;
+		}
+		if(this.x <= plot.getX() && (this.x + this.width) >= (plot.getX() + plot.getWidth()) && plot.y >= this.y && (plot.y + plot.depth) <= (this.y + this.depth)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	/**
+	 * Boolean method to determine if the plot instance passed overlaps the current plot instance
+	 * @param plot
+	 * @return boolean
+	 */
+	public boolean overlaps(Plot plot) {
+		if(this.x + this.width > plot.getX() || this.x < plot.getX() + plot.getWidth() || this.y + this.depth > plot.getY() || this.y < plot.getY() + plot.getDepth())
+			return true;
+		else
+			return false;
+		
+	}
+	/**
+	 * Getter and setter methods for all attributes
+	 */
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	/**
+	 * Overrided toString method
+	 */
+	@Override
+	public String toString() {
+		return this.x + "," + this.y + "," + this.width + "," + this.depth;
+	}
+	
+}
