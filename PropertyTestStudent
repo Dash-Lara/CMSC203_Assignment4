@@ -1,0 +1,66 @@
+/*
+ * Class: CMSC203 CRN 21079
+ *Program: Assignment 4 
+ *Instructor: Professor Monshi
+ *Summary of Description: A program to create a property management company and manage the company’s different buildings 
+ *Due Date: 11/08/2022
+ *Integrity Pledge: I, Dashawna Lara, pledge that I, Dashawna Lara, have completed the programming assignment independently.
+ *I, Dashawna Lara, have not copied the code from a student or any source.
+ *Student: Dashawna Lara
+ */
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
+
+class PropertyTestStudent {
+	Property p1, p2;
+
+	@BeforeEach
+	void setUp() throws Exception {
+		p1 = new Property("Property Hotel", "Silver Spring", 2350.50, "Capital One Bank");
+		p2 = new Property("Dulce Home", "Rockville", 345.65,"Truist Bank", 3, 3, 3, 3);
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+		p1 = p2 = null;
+	}
+
+	@Test
+	void testGetPropertyName() {
+		assertEquals("Property Hotel", p1.getPropertyName());
+		assertEquals("Dulce Home", p2.getPropertyName());
+	}
+
+	@Test
+	void testGetRentAmount() {
+		assertEquals(2350.50, p1.getRentAmount());
+		assertEquals(345.65, p2.getRentAmount());
+	}
+
+	@Test
+	void testGetPlot() {
+		assertEquals(0, p1.getPlot().getX());
+		assertEquals(0, p1.getPlot().getY());
+		assertEquals(1, p1.getPlot().getWidth());
+		assertEquals(1, p1.getPlot().getDepth());
+		assertEquals(3, p2.getPlot().getX());
+		assertEquals(3, p2.getPlot().getY());
+		assertEquals(3, p2.getPlot().getWidth());
+		assertEquals(3, p2.getPlot().getDepth());
+	}
+
+	@Test
+	void testToString() {
+		assertEquals("Property Hotel,Silver Spring,Capital One Bank,2350.5",p1.toString());	
+		assertEquals("Dulce Home,Rockville,Truist Bank,345.65", p2.toString());
+	}
+
+}
+
+  
